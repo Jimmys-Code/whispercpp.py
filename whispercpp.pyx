@@ -72,8 +72,8 @@ cdef whisper_full_params default_params() nogil:
     cdef whisper_full_params params = whisper_full_default_params(
         whisper_sampling_strategy.WHISPER_SAMPLING_GREEDY
     )
-    params.print_realtime = True
-    params.print_progress = True
+    params.print_realtime = False
+    params.print_progress = False
     params.translate = False
     params.language = <const char *> LANGUAGE
     n_threads = N_THREADS
@@ -97,14 +97,14 @@ cdef class Whisper:
             self.ctx = whisper_init_from_file(model_b)
         
         self.params = default_params()
-        whisper_print_system_info()
+        #whisper_print_system_info()
 
 
     def __dealloc__(self):
         whisper_free(self.ctx)
 
     def transcribe(self, filename=TEST_FILE):
-        print("Loading data..")
+        #print("Loading data..")
         if (type(filename) == np.ndarray) :
             temp = filename
         
